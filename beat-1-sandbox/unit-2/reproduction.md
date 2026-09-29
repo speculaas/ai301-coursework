@@ -88,9 +88,7 @@ Confirming full run 2026-09-29 (`--save-run eval-run.txt`, Sonnet): **19/20 PASS
 
 **Package analysis**
 
-<!-- TODO after a full or targeted scored run. Use a real pkg-NN id, not calib-*. -->
-
-_Pending eval._ After the first full run, pick one scored package (for example a wrong-target case such as those the draft rubric aimed at), name it by id, record your verdict vs gold, and explain which check decided it. Leave this marker until then.
+`pkg-09` (`sharkdp/fd#2033`, category `clear-accept`). Gold verdict: **accept**. Harness verdict on the confirming 2026-09-29 run: **reject** (disagreement). Deciding checks: **Procedure is independently followable** and **Artifact proves the reported outcome**. Gold treats this as an honest cannot-reproduce with a real attempt, marker-order artifacts, and named material limits (e.g. uniform name lengths, 2 MiB `ARG_MAX`). The model failed Procedure because the asymmetric probe (“pad the second command’s arguments ~40% longer”) was only described in prose—no exact modified command a stranger could re-run—and treated Artifact as unclear/fail because the pasted `order.log` matched the *symmetric* baseline while the padded run had no raw artifact of its own. I left the rubric unchanged so wrong-target / no-evidence packages would not loosen.
 
 **Check rationale**
 
@@ -102,7 +100,8 @@ Why it reads this way: the live-session / worksheet cold-run on `calib-03` showe
 
 **Trade-offs**
 
-This Procedure wording gives up treating “any runnable steps” as enough for accept: a package whose commands are clear but whose input silently changes the issue trigger still fails on Artifact (or on Procedure if the deviation is unstated). After the first full eval, re-check with `--only` including at least one wrong-target canary (for example a known wrong-target `pkg-*` from the harness README) whenever this check is loosened, so the split does not regress. Until that confirming run exists, the trade-off is documented from the calib-03 lesson rather than from a scored disagreement.
+This Procedure wording gives up treating “any runnable steps” as enough for accept: a package whose commands are clear but whose input silently changes the issue trigger still fails on Artifact (or on Procedure if the deviation is unstated). After the confirming full run, the cost showed up on `pkg-09`: an honest cannot-reproduce that gold accepts was rejected because the decisive probe stayed in prose and lacked its own artifact. I did **not** loosen Procedure/Artifact afterward—`--only` with wrong-target canaries would be required before any softening, and 19/20 already clears the bar. Until a deliberate rewrite, the trade-off is: fewer false accepts on wrong-target packages, at the price of occasional false rejects on incomplete cannot-repro write-ups (lesson for live reports: show the exact probe command and its raw output).
+
 
 ---
 
