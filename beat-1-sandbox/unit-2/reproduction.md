@@ -42,10 +42,10 @@ Permalink: _not posted yet._
 Planned report shape (fill with real commit hash, paths, and quoted lines after you reproduce):
 
 ## Environment
-- OS: macOS … (fill)
-- Python: … (fill)
+- OS: macOS 15.1
+- Python: 3.9.6 (host; unused for static docs repro)
 - Repo / fork: `speculaas/pathreview-ai301-fa26-s1` (or the sandbox clone you actually use)
-- Commit: `<hash>` on `<branch>`, clean working tree (or note dirty files)
+- Commit: `f89c06f` on `main` (aligned with origin at draft time)
 - Method: static comparison of `README.md`, `.env.example`, and `core/config.py` (running the app is not required to observe the docs mismatch)
 
 ## Steps
