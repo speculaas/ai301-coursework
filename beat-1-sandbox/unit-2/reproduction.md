@@ -35,31 +35,43 @@ Note: `ocabezas95` already posted a claim and a repro on #73 (2026-09-26). Path 
 
 **Reproduction comment**
 
-<!-- TODO after setup + live-check + post. Stub outline only — do not post this stub. -->
+Permalink: https://github.com/codepath/pathreview-ai301-fa26-s1/issues/73#issuecomment-5886156672
 
-Permalink: _not posted yet._
+Posted body:
 
-Planned report shape (fill with real commit hash, paths, and quoted lines after you reproduce):
+### Reproduction Report: README vs `.env.example` docs mismatch (#73)
 
-## Environment
-- OS: macOS 15.1
-- Python: 3.9.6 (host; unused for static docs repro)
-- Repo / fork: `speculaas/pathreview-ai301-fa26-s1` (or the sandbox clone you actually use)
-- Commit: `f89c06f` on `main` (aligned with origin at draft time)
-- Method: static comparison of `README.md`, `.env.example`, and `core/config.py` (running the app is not required to observe the docs mismatch)
+**Environment.** macOS 15.1; fork `speculaas/pathreview-ai301-fa26-s1` at commit `f89c06f` on `main`. Method: static comparison of `README.md`, `.env.example`, and `core/config.py` (no app run required for this docs mismatch).
 
-## Steps
-1. Clone / checkout the commit above.
-2. Open `README.md` Quick Start and quote the `.env` / `OPENROUTER_API_KEY` instruction.
-3. Open `.env.example` and quote the `LLM_PROVIDER` comment and listed API key variables.
-4. Open `core/config.py` and quote the `openai_api_key` / `openrouter_api_key` fields.
+**Steps.**
 
-## Expected vs actual
-- Expected (from following README alone): `.env.example` would document `OPENROUTER_API_KEY` (and any provider values README assumes).
-- Actual: `.env.example` documents only `mock` / `openai` and `OPENAI_API_KEY`; no `OPENROUTER_API_KEY` line. `core/config.py` still defines both keys.
+1. Checked out commit `f89c06f`.
+2. Read README Quick Start env instruction.
+3. Read `.env.example` provider / API key lines.
+4. Read `core/config.py` settings fields for OpenAI and OpenRouter keys.
 
-## Artifact
-Paste the exact excerpts (or a short terminal dump such as `rg -n 'OPENROUTER|LLM_PROVIDER|OPENAI_API_KEY' README.md .env.example core/config.py`) produced by the steps above.
+**Expected.** Following the README alone, `.env.example` would list `OPENROUTER_API_KEY` for the contributor to add after `cp .env.example .env`.
+
+**Actual.** README says to add `OPENROUTER_API_KEY` when configuring `.env`, but `.env.example` only shows `LLM_PROVIDER=mock` and `OPENAI_API_KEY=sk-your-key-here` — no `OPENROUTER_API_KEY` line. `core/config.py` defines both `openai_api_key` and `openrouter_api_key` (plus OpenRouter base URL / model defaults).
+
+**Artifact.**
+
+```text
+README.md:
+# Configure environment (add your OPENROUTER_API_KEY to .env)
+cp .env.example .env
+
+.env.example:
+LLM_PROVIDER=mock
+OPENAI_API_KEY=sk-your-key-here
+
+core/config.py:
+openai_api_key: str = Field(default="")
+openrouter_api_key: str = Field(default="")
+```
+
+This confirms the docs disagreement described in the issue. I am not claiming a product bug beyond the documentation / example-env mismatch, and I am not proposing a fix in this comment.
+
 
 ---
 
