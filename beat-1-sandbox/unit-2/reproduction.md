@@ -23,11 +23,9 @@ speculaas
 
 **Claim comment**
 
-<!-- TODO after live-check + post: replace this block with the comment permalink, then the exact posted body. -->
+Permalink: https://github.com/codepath/pathreview-ai301-fa26-s1/issues/73#issuecomment-5886021336
 
-Permalink: _not posted yet — draft below; run_ `claude "repro-check: grade my draft claim comment in beat-1-sandbox/unit-2/claim-draft-issue-73.md for issue https://github.com/codepath/pathreview-ai301-fa26-s1/issues/73"` _until accept, then post, then paste the permalink here._
-
-Draft text (copy source of truth: `claim-draft-issue-73.md`):
+Posted body:
 
 I'd like to investigate the docs mismatch on this issue: `README.md` Quick Start says to add `OPENROUTER_API_KEY` when copying `.env.example` to `.env`, but `.env.example` does not list `OPENROUTER_API_KEY`, and its `LLM_PROVIDER` comment only offers `mock` and `openai`. `core/config.py` defines both `openai_api_key` and `openrouter_api_key`, so the setup docs and the example env file currently point a new contributor in different directions.
 
@@ -74,7 +72,7 @@ fields.
 
 <!-- TODO after harness runs. Last score must match committed eval-run.txt. -->
 
-_No scored eval run yet._ Planned sequence: calibration `--only calib-01,calib-02,calib-03,calib-04 --include-calibration` → optional `--limit` smoke → full scored run → `--only` on disagreements with canaries → confirming full run with `--save-run eval-run.txt`. Replace this paragraph with the ordered agreement scores once those runs exist (example shape: `16/20 → 18/20 (final)`).
+Confirming full run 2026-09-29 (`--save-run eval-run.txt`, Sonnet): **19/20 PASS** (bar 18/20). Categories: clear-accept 7/8, disclosure 1/1, no-evidence 4/4, unfollowable-comms 3/3, wrong-target 4/4. Sole disagreement: `pkg-09` (gold accept / clear-accept; harness reject on Procedure + Artifact — honest cannot-repro false negative; rubric left unchanged). Prior smoke `--limit 3`: 3/3. Last score matches committed `eval-run.txt` in this directory.
 
 **Package analysis**
 
