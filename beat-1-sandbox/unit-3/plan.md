@@ -114,4 +114,10 @@ would be outside this docs-only scope.
 
 ## Deviations
 
-[Filled after build.]
+Nothing changed; the plan held. The branch `fix/73-openrouter-env-example`
+(commit `4fdcf49`) adds exactly the two lines in Approach step 2 to
+`.env.example`, under `OPENAI_API_KEY`, and `git diff --stat main` shows that
+one file with 2 insertions. README, `docs/SETUP.md`, `core/config.py`, and the
+`LLM_PROVIDER` `Options:` comment are untouched, and the before/after re-run
+matched the expected-after (count `0` before, `1` after). The posted comment's
+intent still matches the build, so no thread update is needed.
