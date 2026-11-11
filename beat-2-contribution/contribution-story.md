@@ -58,21 +58,17 @@ one in the week it belongs to.
 
 I installed the scout over my unit 1 skill and wrote `search-strategy.md` with four queries traced to my fit profile. The 2026-10-15 scan went 397 unique results to 255 after filters, and graded the top five (four accept, one reject). Its weak spots were that every query hit the 100-result cap, the sort did not separate the top five (all had 0 comments and the bug label), and sandbox repos leaked into the list. I logged dated lines in `scan-notes.md` and edited only one thing in the rubric: after the scout accepted finos/opengris-scaler#235 on a loose reading, I added a fail condition for an issue that is blocked on an open prerequisite. Most of my other fixes are still logged as proposed, not applied. On 2026-11-04 I retargeted the queries at upstreams of my own projects, because `good first issue` returned 0 results there.
 
-**Unit 6: [one line on the tool work]**
+**Unit 6: claim and repo memory done by hand; voice-guard not installed**
 
-[2-4 sentences: the voice-guard, the repo-memory file. What broke or
-fell short, and what changed because of it. "Nothing broke" counts when
-it is true - say how you know.]
+I did not install the voice-guard or write a `CLAUDE.local.md` for Nimbus in Unit 6. I posted my claim on #952 by hand on 2026-11-10 (23:20 MST), so no hook checked it against a voice guide, and I did not apply the Unit 6 scope patch to my rubric, which is why the scout's read-out for #952 has no difficulty note. What I did instead was read `CONTRIBUTING.md` and the PR template myself and write down the repo's checks in my Implementation Notes. What fell short is that the claim went out unchecked and the claim asked to be assigned but did not name a report-back date. What I would change is to install the guard before posting anything else on this thread.
 
-**Unit 7: [one line on the tool work]**
+**Unit 7: opened the PR through the repo's own `preflight:fast` gate; ship-gate not installed**
 
-[2-4 sentences: the ship-gate and your gate manifest. What it produced
-on your real branch, what fought you, what changed because of it.]
+I did not install the course ship-gate, so I wrote no `ship-manifest.md` and the gate never ran on my branch. The checks I actually ran before opening PR #1965 were the repo's own: `bun run preflight:fast` (build, typecheck, Biome lint, markdown lint and audits) and the 74 Zotero, routing and body-cap tests. Everything passed except `audit:js-licenses`, which fails on a macOS-only LGPL package unrelated to my change, and exactly that sort of known-failing check is what the manifest's second table is for. The root `bun test` also timed out on unrelated UI tests, so I have no clean full-repo result and I say so in the PR. I opened the PR through the GitHub page, so no hook checked the description either; the PR text still has the template's AI-assistance disclosure.
 
-**Unit 8: [one line on the tool work]**
+**Unit 8: PR-monitor not installed; read the PR state with `gh` instead**
 
-[2-4 sentences: the PR-monitor and your playbook. What it read, what it
-drafted, what you did with the draft.]
+I did not install the PR-monitor or write a playbook. As of 2026-11-11 00:30 MST, `gh pr view` shows PR #1965 open with the `cla`, `label` and title checks passing, CodeRabbit skipped, no reviews, and #952 still with no assignee. There was nothing to draft a reply to. I also graded #952 with the scout on 2026-11-11 and it rejected the issue only because it saw my own PR and claim as a stranger's, which I logged in `scan-notes.md`. If I come back to this after submitting, my own staleness rule would be a nudge to the maintainer after about a week of quiet, since the repo has one maintainer and few outside merges.
 
 ---
 
@@ -229,7 +225,7 @@ Posted my comment on #952 asking to be assigned and describing the plan, then wr
 **Maintainer Feedback:**
 
 - 2026-11-10: none yet. The `cla` check failed at first and passed after I signed the CLA. The title lint and labeller passed, and CodeRabbit skipped itself because the repo has fewer than 10 stars.
-- [Add the date and how you addressed each review comment, when one arrives.]
+- 2026-11-11: no review or maintainer comment on #1965 and no reply on #952 yet; the assignee box is still empty after my claim comment, and CONTRIBUTING says assigned-first is the courteous default, not a hard gate. I have not nudged. Only bots have commented (CodeRabbit skipped itself, and the GitHub Actions bot posted the CLA notice).
 
 **Status:** Awaiting review.
 
@@ -246,25 +242,22 @@ Posted my comment on #952 asking to be assigned and describing the plan, then wr
 
 **Technical Skills Gained**
 
-[What you learned technically, named concretely.]
+I learned how Nimbus decides what a long text is worth keeping: `body-caps.ts` gives a type a 16,384-character body only if it is in `LONG_BODY_TYPES`, and `embedding/routing.ts` keeps a type local-only (MiniLM) or lets it go to a remote embedder, with a test that pins the two sets as disjoint. I learned the Zotero API shape for notes (HTML in `data.note`, no title field, `data.parentItem` for a child note) and that the sync's offset pagination with `MAX_PAGES = 20` means notes and references now share a 2,000-item cap. I also learned to turn HTML into plain text safely enough for a title and body (first non-empty line, 120-character truncation, entities decoded), and how the repo's `preflight:fast` gate is built.
 
 **Challenges Overcome**
 
-[What was hard and how you solved it; point at the real events, the
-Toolkit blocks above are full of them.]
+Finding the issue was hard because the scout's queries hit the 100-result cap, so I crawled the whole Issue Selection site (6,788 listings) and narrowed it by hand to #952. Verifying the change was messier than writing it: the root `bun test` ran UI tests that time out and a worker file that was not built, so I ran the Zotero, routing and body-cap tests (74 pass) and recorded that I have no clean full-repo run. `preflight:fast` failed only on a license audit for a macOS-only package that my change does not touch. The CLA bot blocked the PR until I signed by comment, and I made that legal decision myself after asking why it related to my university.
 
 **What I'd Do Differently Next Time**
 
-[Reflection on your process.]
+I would install the voice-guard, the ship-gate and the monitor in the week each one was taught instead of leaving them for the last night, because my claim, my PR and my story all went out without them. I would claim the issue and ask to be assigned earlier, since Nimbus has one maintainer and a PR from an outside contributor can wait. I would also run the scout on my own pick before choosing it, not after, and fix the rubric so it does not treat my own PR as a stranger's.
 
 ---
 
 ## Resources Used
 
-[What actually helped, not a reading list. List things this story
-already shows you using: the doc you followed to set the environment
-up, the thread that explained the bug, the person who answered you.
-One real entry beats ten plausible ones.]
-
-- [Link to documentation that helped]
-- [Discussion, issue, or post that helped]
+- [Issue #952](https://github.com/nimbus-agent/Nimbus/issues/952): the maintainer's written spec, with the files and an acceptance checklist.
+- The repo's `CONTRIBUTING.md` and `pull_request_template.md`: the assigned-first rule, the CLA, the Non-Negotiables Checklist, and the checks to run.
+- `packages/gateway/src/embedding/routing.ts` and `body-caps.ts` in Nimbus: they showed which set a note belongs in.
+- The existing Zotero reference mapper and its fake-server test: the pattern I followed and the test I changed.
+- [PR #1965](https://github.com/nimbus-agent/Nimbus/pull/1965): the PR itself, with the CLA bot and CodeRabbit notices.
