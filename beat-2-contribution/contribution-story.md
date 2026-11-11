@@ -196,9 +196,6 @@ Repo checks, run locally on macOS: `bun run typecheck` is clean; `bun run prefli
 
 ## Implementation Notes
 
-[A running log, added to as you work. Date each entry. What you
-built, decisions you made when you made them, wrong turns included.]
-
 **2026-11-10**
 
 Crawled the Issue Selection site (GET only, no Claim), narrowed to Nimbus #952 and apache/mahout#1468 (backup, needs a GPU), and chose #952 because it needs no GPU and has a written spec. I did not decide on the embedding behavior until I had read `routing.ts` and `body-caps.ts`: a note needs to be in a long-body set to keep its text, and the safe choice for private notes is the local-only set.
