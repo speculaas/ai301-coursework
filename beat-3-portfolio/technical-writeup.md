@@ -2,13 +2,13 @@
 
 ## Overview
 
-[Nimbus](https://github.com/nimbus-agent/Nimbus) is a local-first AI agent whose Zotero connector syncs a user's reference library into Nimbus's search index. In issue [#952](https://github.com/nimbus-agent/Nimbus/issues/952), one line in `SKIP_ITEM_TYPES` (`new Set(["attachment", "note"])`) threw away all Zotero reading notes, so a search for notes you wrote about a paper returned nothing. I claimed the issue, built the `zotero-note-mapping.ts` mapper, routed `note` items in `zotero-sync.ts`, and registered `zotero:note` in `LOCAL_ONLY_PROSE_TYPES` so notes keep a 16,384-character body cap while staying on the local embedder. Alongside the contribution, I patched my `issue-scout` rubric to separate feasibility from prerequisite blockers. [PR #1965](https://github.com/nimbus-agent/Nimbus/pull/1965) merged on November 16, 2026.
+[Nimbus](https://github.com/nimbus-agent/Nimbus) is a local-first AI agent whose Zotero connector syncs a user's reference library into Nimbus's search index. In issue [#952](https://github.com/nimbus-agent/Nimbus/issues/952), one line in `SKIP_ITEM_TYPES` (`new Set(["attachment", "note"])`) threw away all Zotero reading notes, so a search for notes you wrote about a paper returned nothing. I claimed the issue, built the `zotero-note-mapping.ts` mapper, routed `note` items in `zotero-sync.ts`, and registered `zotero:note` in `LOCAL_ONLY_PROSE_TYPES` so notes keep a 16,384 UTF-16 code unit body cap while staying on the local embedder. Alongside the contribution, I patched my `issue-scout` rubric to separate feasibility from prerequisite blockers. [PR #1965](https://github.com/nimbus-agent/Nimbus/pull/1965) merged on November 16, 2026.
 
 ## What happened
 
 ### Oct 15 – Nov 10: Finding the issue
 
-My Unit 5 `issue-scout` scan (Oct 15) missed #952 because every `gh search` query hit GitHub's 100-result cap (397 unique results, 255 after filters). On Nov 10, I crawled 6,788 Issue Selection listings across Python, JavaScript, and TypeScript, then enriched candidates using timeline `cross-referenced` events (`enrich_gh2.py`) rather than search fields. That narrowed the list to two candidates and surfaced `nimbus-agent/Nimbus#952`.
+My Unit 5 `issue-scout` scan (Oct 15) missed #952 because every `gh search` query hit GitHub's 100-result cap (397 unique results, 255 after filters). On Nov 10, I crawled 6,788 Issue Selection listings across Python, JavaScript, and TypeScript, then enriched candidates using timeline `cross-referenced` events (`enrich_gh2.py`) rather than search fields. It surfaced `nimbus-agent/Nimbus#952`.
 
 ### Nov 10: Claim and build
 
